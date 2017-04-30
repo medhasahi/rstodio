@@ -1,0 +1,1225 @@
+
+> my_matrix2 <- matrix(1:20, nrow = 4, ncol = 5, byrow = FALSE)
+
+| You got it!
+
+  |===================================                                        |  47%
+
+| Finally, let's confirm that my_matrix and my_matrix2 are actually identical. The
+| identical() function will tell us if its first two arguments are the same. Try it
+| out.
+
+> 
+> my_matrix2
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    5    9   13   17
+[2,]    2    6   10   14   18
+[3,]    3    7   11   15   19
+[4,]    4    8   12   16   20
+
+| Try again. Getting it right on the first try is boring anyway! Or, type info() for
+| more options.
+
+| If you're not sure about this one, then checkout the documentation for identical()
+| using the `?` function.
+
+> ?identical
+> identical(my_matrix, my_matrix2)
+[1] TRUE
+
+| Perseverance, that's the answer.
+
+  |======================================                                     |  50%
+
+| Now, imagine that the numbers in our table represent some measurements from a
+| clinical experiment, where each row represents one patient and each column
+| represents one variable for which measurements were taken.
+
+...
+
+  |========================================                                   |  53%
+
+| We may want to label the rows, so that we know which numbers belong to each
+| patient in the experiment. One way to do this is to add a column to the matrix,
+| which contains the names of all four people.
+
+...
+
+  |==========================================                                 |  56%
+
+| Let's start by creating a character vector containing the names of our patients --
+| Bill, Gina, Kelly, and Sean. Remember that double quotes tell R that something is
+| a character string. Store the result in a variable called patients.
+
+> patients<-(bill,gina,kelly,sean)
+Error: unexpected ',' in "patients<-(bill,"
+> patients <- c("Bill", "Gina", "Kelly", "Sean")
+
+| Perseverance, that's the answer.
+
+  |============================================                               |  58%
+
+| Now we'll use the cbind() function to 'combine columns'. Don't worry about storing
+| the result in a new variable. Just call cbind() with two arguments -- the patients
+| vector and my_matrix.
+
+> cbind(patients, my_matrix)
+     patients                       
+[1,] "Bill"   "1" "5" "9"  "13" "17"
+[2,] "Gina"   "2" "6" "10" "14" "18"
+[3,] "Kelly"  "3" "7" "11" "15" "19"
+[4,] "Sean"   "4" "8" "12" "16" "20"
+
+| You're the best!
+
+  |==============================================                             |  61%
+
+| Something is fishy about our result! It appears that combining the character
+| vector with our matrix of numbers caused everything to be enclosed in double
+| quotes. This means we're left with a matrix of character strings, which is no
+| good.
+
+...
+
+  |================================================                           |  64%
+
+| If you remember back to the beginning of this lesson, I told you that matrices can
+| only contain ONE class of data. Therefore, when we tried to combine a character
+| vector with a numeric matrix, R was forced to 'coerce' the numbers to characters,
+| hence the double quotes.
+
+...
+
+  |==================================================                         |  67%
+
+| This is called 'implicit coercion', because we didn't ask for it. It just
+| happened. But why didn't R just convert the names of our patients to numbers? I'll
+| let you ponder that question on your own.
+
+...
+
+  |====================================================                       |  69%
+
+| So, we're still left with the question of how to include the names of our patients
+| in the table without destroying the integrity of our numeric data. Try the
+| following -- my_data <- data.frame(patients, my_matrix)
+
+> my_data <- data.frame(patients, my_matrix)
+
+| Excellent work!
+
+  |======================================================                     |  72%
+
+| Now view the contents of my_data to see what we've come up with.
+
+> my_data
+  patients X1 X2 X3 X4 X5
+1     Bill  1  5  9 13 17
+2     Gina  2  6 10 14 18
+3    Kelly  3  7 11 15 19
+4     Sean  4  8 12 16 20
+
+| Keep working like that and you'll get there!
+
+  |========================================================                   |  75%
+
+| It looks like the data.frame() function allowed us to store our character vector
+| of names right alongside our matrix of numbers. That's exactly what we were hoping
+| for!
+
+...
+
+  |==========================================================                 |  78%
+
+| Behind the scenes, the data.frame() function takes any number of arguments and
+| returns a single object of class `data.frame` that is composed of the original
+| objects.
+
+...
+
+  |============================================================               |  81%
+
+| Let's confirm this by calling the class() function on our newly created data
+| frame.
+
+> class(my_data)
+[1] "data.frame"
+
+| You are amazing!
+
+  |==============================================================             |  83%
+
+| It's also possible to assign names to the individual rows and columns of a data
+| frame, which presents another possible way of determining which row of values in
+| our table belongs to each patient.
+
+...
+
+  |=================================================================          |  86%
+
+| However, since we've already solved that problem, let's solve a different problem
+| by assigning names to the columns of our data frame so that we know what type of
+| measurement each column represents.
+
+...
+
+  |===================================================================        |  89%
+
+| Since we have six columns (including patient names), we'll need to first create a
+| vector containing one element for each column. Create a character vector called
+| cnames that contains the following values (in order) -- "patient", "age",
+| "weight", "bp", "rating", "test".
+
+> cnames <- c("patient", "age", "weight", "bp", "rating", "test")
+
+| You nailed it! Good job!
+
+  |=====================================================================      |  92%
+
+| Now, use the colnames() function to set the `colnames` attribute for our data
+| frame. This is similar to the way we used the dim() function earlier in this
+| lesson.
+
+> col(my_data)
+     [,1] [,2] [,3] [,4] [,5] [,6]
+[1,]    1    2    3    4    5    6
+[2,]    1    2    3    4    5    6
+[3,]    1    2    3    4    5    6
+[4,]    1    2    3    4    5    6
+
+| That's not exactly what I'm looking for. Try again. Or, type info() for more
+| options.
+
+| Try colnames(my_data) <- cnames.
+
+> (my_data)<-cnames
+Error in (my_data) <- cnames : could not find function "(<-"
+> colnames(my_data) <- cnames
+
+| All that hard work is paying off!
+
+  |=======================================================================    |  94%
+
+| Let's see if that got the job done. Print the contents of my_data.
+
+> my_data
+  patient age weight bp rating test
+1    Bill   1      5  9     13   17
+2    Gina   2      6 10     14   18
+3   Kelly   3      7 11     15   19
+4    Sean   4      8 12     16   20
+
+| You nailed it! Good job!
+
+  |=========================================================================  |  97%
+
+| In this lesson, you learned the basics of working with two very important and
+| common data structures -- matrices and data frames. There's much more to learn and
+| we'll be covering more advanced topics, particularly with respect to data frames,
+| in future lessons.
+
+...
+
+  |===========================================================================| 100%
+
+| Would you like to receive credit for completing this course on Coursera.org?
+
+1: No
+2: Yes
+
+Selection: yes
+Enter an item from the menu, or 0 to exit
+Selection: 1
+
+| That's correct!
+
+| You've reached the end of this lesson! Returning to the main menu...
+
+| Would you like to continue with one of these lessons?
+
+1: R Programming Basic Building Blocks
+2: No. Let me start something new.
+
+Selection: 2
+
+| Please choose a course, or type 0 to exit swirl.
+
+1: R Programming
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to course menu.
+
+ 1: Basic Building Blocks      2: Workspace and Files     
+ 3: Sequences of Numbers       4: Vectors                 
+ 5: Missing Values             6: Subsetting Vectors      
+ 7: Matrices and Data Frames   8: Logic                   
+ 9: Functions                 10: lapply and sapply       
+11: vapply and tapply         12: Looking at Data         
+13: Simulation                14: Dates and Times         
+15: Base Graphics             
+
+Selection: 5
+
+  |                                                                           |   0%
+
+| Missing values play an important role in statistics and data analysis. Often,
+| missing values must not be ignored, but rather they should be carefully studied to
+| see if there's an underlying pattern or cause for their missingness.
+
+...
+
+  |====                                                                       |   5%
+
+| In R, NA is used to represent any value that is 'not available' or 'missing' (in
+| the statistical sense). In this lesson, we'll explore missing values further.
+
+...
+
+  |========                                                                   |  10%
+
+| Any operation involving NA generally yields NA as the result. To illustrate, let's
+| create a vector c(44, NA, 5, NA) and assign it to a variable x.
+
+> c(44, NA, 5, NA)
+[1] 44 NA  5 NA
+
+| Keep trying! Or, type info() for more options.
+
+| Assign the vector c(44, NA, 5, NA) to a variable x. The NA must uppercase.
+
+> <- c(44, NA, 5, NA)
+Error: unexpected assignment in "<-"
+> x <- c(44, NA, 5, NA)
+
+| You got it!
+
+  |===========                                                                |  15%
+
+| Now, let's multiply x by 3.
+
+> x*3
+[1] 132  NA  15  NA
+
+| Nice work!
+
+  |===============                                                            |  20%
+
+| Notice that the elements of the resulting vector that correspond with the NA
+| values in x are also NA.
+
+...
+
+  |===================                                                        |  25%
+
+| To make things a little more interesting, lets create a vector containing 1000
+| draws from a standard normal distribution with y <- rnorm(1000).
+
+> 
+> y<-rnorm(1000)
+
+| Your dedication is inspiring!
+
+  |=======================                                                    |  30%
+
+| Next, let's create a vector containing 1000 NAs with z <- rep(NA, 1000).
+
+> z<-rep(NA,1000)
+
+| All that hard work is paying off!
+
+  |==========================                                                 |  35%
+
+| Finally, let's select 100 elements at random from these 2000 values (combining y
+| and z) such that we don't know how many NAs we'll wind up with or what positions
+| they'll occupy in our final vector -- my_data <- sample(c(y, z), 100).
+
+> my_data<-sample(c(y,z),1000)
+
+| That's not exactly what I'm looking for. Try again. Or, type info() for more
+| options.
+
+| The sample() function draws a random sample from the data provided as its first
+| argument (in this case c(y, z)) of the size specified by the second argument
+| (100). The command my_data <- sample(c(y, z), 100) will give us what we want.
+
+> my_data <- sample(c(y, z), 100)
+
+| You are quite good my friend!
+
+  |==============================                                             |  40%
+
+| Let's first ask the question of where our NAs are located in our data. The is.na()
+| function tells us whether each element of a vector is NA. Call is.na() on my_data
+| and assign the result to my_na.
+
+> my_na<-my_data
+
+| You're close...I can feel it! Try it again. Or, type info() for more options.
+
+| Assign the result of is.na(my_data) to the variable my_na.
+
+> na(my_data)
+Error: could not find function "na"
+> my_data<-my_na
+
+| Not quite right, but keep trying. Or, type info() for more options.
+
+| Assign the result of is.na(my_data) to the variable my_na.
+
+> my_na <- is.na(my_data)
+
+| Excellent work!
+
+  |==================================                                         |  45%
+
+| Now, print my_na to see what you came up with.
+
+> my_na
+  [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+ [14]  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE
+ [27] FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE FALSE
+ [40] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+ [53] FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE
+ [66] FALSE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE
+ [79]  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
+ [92] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE
+
+| That's a job well done!
+
+  |======================================                                     |  50%
+
+| Everywhere you see a TRUE, you know the corresponding element of my_data is NA.
+| Likewise, everywhere you see a FALSE, you know the corresponding element of
+| my_data is one of our random draws from the standard normal distribution.
+
+...
+
+  |=========================================                                  |  55%
+
+| In our previous discussion of logical operators, we introduced the `==` operator
+| as a method of testing for equality between two objects. So, you might think the
+| expression my_data == NA yields the same results as is.na(). Give it a try.
+
+> my_data==NA
+  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+ [27] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+ [53] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+ [79] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+
+| You are quite good my friend!
+
+  |=============================================                              |  60%
+
+| The reason you got a vector of all NAs is that NA is not really a value, but just
+| a placeholder for a quantity that is not available. Therefore the logical
+| expression is incomplete and R has no choice but to return a vector of the same
+| length as my_data that contains all NAs.
+
+...
+
+  |=================================================                          |  65%
+
+| Don't worry if that's a little confusing. The key takeaway is to be cautious when
+| using logical expressions anytime NAs might creep in, since a single NA value can
+| derail the entire thing.
+
+...
+
+  |=====================================================                      |  70%
+
+| So, back to the task at hand. Now that we have a vector, my_na, that has a TRUE
+| for every NA and FALSE for every numeric value, we can compute the total number of
+| NAs in our data.
+
+...
+
+  |========================================================                   |  75%
+
+| The trick is to recognize that underneath the surface, R represents TRUE as the
+| number 1 and FALSE as the number 0. Therefore, if we take the sum of a bunch of
+| TRUEs and FALSEs, we get the total number of TRUEs.
+
+...
+
+  |============================================================               |  80%
+
+| Let's give that a try here. Call the sum() function on my_na to count the total
+| number of TRUEs in my_na, and thus the total number of NAs in my_data. Don't
+| assign the result to a new variable.
+
+> sum(my_na)
+[1] 52
+
+| You are doing so well!
+
+  |================================================================           |  85%
+
+| Pretty cool, huh? Finally, let's take a look at the data to convince ourselves
+| that everything 'adds up'. Print my_data to the console.
+
+> my_data
+  [1]  0.75151160 -0.21352369          NA  0.44343031 -0.83959733          NA
+  [7]  0.27356505 -0.28328283 -1.33012868  0.13442381  1.13896601          NA
+ [13] -1.26211950          NA          NA  1.50525182          NA -1.10614109
+ [19]  1.89118801  0.30779926          NA -0.69042002          NA          NA
+ [25]          NA -1.63289121 -0.51849884          NA          NA          NA
+ [31]  0.62655685          NA          NA          NA -0.35250872          NA
+ [37] -0.02544936          NA  1.34621742  0.37793783          NA          NA
+ [43]          NA          NA  2.69265140          NA          NA -1.26886923
+ [49]          NA          NA -0.36993678          NA  0.22279541          NA
+ [55] -1.58884770  0.23742923          NA  0.05260118          NA          NA
+ [61]          NA  0.77418664 -2.96434719 -2.33551410          NA  1.66873444
+ [67]          NA          NA          NA -0.74953744          NA -1.28640615
+ [73]          NA          NA -1.03628820  0.70336231          NA -2.60322930
+ [79]          NA -1.43734010          NA          NA -1.31419350          NA
+ [85] -0.71216930          NA          NA          NA          NA  0.30989007
+ [91]          NA  1.49308246          NA          NA  0.99975764 -1.07754848
+ [97]  0.86488568 -0.23117688          NA -0.88382005
+
+| Keep working like that and you'll get there!
+
+  |====================================================================       |  90%
+
+| Now that we've got NAs down pat, let's look at a second type of missing value --
+| NaN, which stands for 'not a number'. To generate NaN, try dividing (using a
+| forward slash) 0 by 0 now.
+
+> 0/0
+[1] NaN
+
+| Perseverance, that's the answer.
+
+  |=======================================================================    |  95%
+
+| Let's do one more, just for fun. In R, Inf stands for infinity. What happens if
+| you subtract Inf from Inf?
+
+> 0-0
+[1] 0
+
+| Give it another try. Or, type info() for more options.
+
+| Type Inf - Inf. Can you guess the result?
+
+> inf
+Error: object 'inf' not found
+> inf-inf
+Error: object 'inf' not found
+> omnitest(correctExpr='Inf - Inf')
+Error: could not find function "omnitest"
+> Inf -Inf
+[1] NaN
+
+| Perseverance, that's the answer.
+
+  |===========================================================================| 100%
+
+| Would you like to receive credit for completing this course on Coursera.org?
+
+1: No
+2: Yes
+
+Selection: yes
+Enter an item from the menu, or 0 to exit
+Selection: 1
+
+| You nailed it! Good job!
+
+| You've reached the end of this lesson! Returning to the main menu...
+
+| Would you like to continue with one of these lessons?
+
+1: R Programming Basic Building Blocks
+2: No. Let me start something new.
+
+Selection: 2
+
+| Please choose a course, or type 0 to exit swirl.
+
+1: R Programming
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to course menu.
+
+ 1: Basic Building Blocks      2: Workspace and Files     
+ 3: Sequences of Numbers       4: Vectors                 
+ 5: Missing Values             6: Subsetting Vectors      
+ 7: Matrices and Data Frames   8: Logic                   
+ 9: Functions                 10: lapply and sapply       
+11: vapply and tapply         12: Looking at Data         
+13: Simulation                14: Dates and Times         
+15: Base Graphics             
+
+Selection: 6
+
+  |                                                                           |   0%
+
+| In this lesson, we'll see how to extract elements from a vector based on some
+| conditions that we specify.
+
+...
+
+  |==                                                                         |   3%
+
+| For example, we may only be interested in the first 20 elements of a vector, or
+| only the elements that are not NA, or only those that are positive or correspond
+| to a specific variable of interest. By the end of this lesson, you'll know how to
+| handle each of these scenarios.
+
+...
+
+  |====                                                                       |   5%
+
+| I've created for you a vector called x that contains a random ordering of 20
+| numbers (from a standard normal distribution) and 20 NAs. Type x now to see what
+| it looks like.
+
+> x
+ [1]  0.3360435 -0.8851049         NA  1.0595398         NA -1.8834013 -1.2834998
+ [8]         NA         NA         NA  0.8155585 -0.2667503  0.2882636  0.6937866
+[15]         NA -1.4744486         NA -0.4001739 -0.1219760         NA         NA
+[22]  0.2032400         NA         NA         NA         NA         NA  1.1131855
+[29] -1.1911433         NA         NA         NA  1.6550376 -0.4668890         NA
+[36]         NA  1.3004094         NA -0.9098360 -1.3859542
+
+| Excellent job!
+
+  |======                                                                     |   8%
+
+| The way you tell R that you want to select some particular elements (i.e. a
+| 'subset') from a vector is by placing an 'index vector' in square brackets
+| immediately following the name of the vector.
+
+...
+
+  |========                                                                   |  10%
+
+| For a simple example, try x[1:10] to view the first ten elements of x.
+
+> x[1:10]
+ [1]  0.3360435 -0.8851049         NA  1.0595398         NA -1.8834013 -1.2834998
+ [8]         NA         NA         NA
+
+| Excellent work!
+
+  |==========                                                                 |  13%
+
+| Index vectors come in four different flavors -- logical vectors, vectors of
+| positive integers, vectors of negative integers, and vectors of character strings
+| -- each of which we'll cover in this lesson.
+
+...
+
+  |============                                                               |  15%
+
+| Let's start by indexing with logical vectors. One common scenario when working
+| with real-world data is that we want to extract all elements of a vector that are
+| not NA (i.e. missing data). Recall that is.na(x) yields a vector of logical values
+| the same length as x, with TRUEs corresponding to NA values in x and FALSEs
+| corresponding to non-NA values in x.
+
+...
+
+  |=============                                                              |  18%
+
+| What do you think x[is.na(x)] will give you?
+
+1: A vector of TRUEs and FALSEs
+2: A vector with no NAs
+3: A vector of all NAs
+4: A vector of length 0
+
+Selection: 4
+
+| You almost had it, but not quite. Try again.
+
+| Remember that is.na(x) tells us where the NAs are in a vector. So if we subset x
+| based on that, what do you expect to happen?
+
+1: A vector with no NAs
+2: A vector of TRUEs and FALSEs
+3: A vector of all NAs
+4: A vector of length 0
+
+Selection: 2
+
+| Keep trying!
+
+| Remember that is.na(x) tells us where the NAs are in a vector. So if we subset x
+| based on that, what do you expect to happen?
+
+1: A vector of length 0
+2: A vector with no NAs
+3: A vector of all NAs
+4: A vector of TRUEs and FALSEs
+
+Selection: 3
+
+| You are amazing!
+
+  |===============                                                            |  21%
+
+| Prove it to yourself by typing x[is.na(x)].
+
+> x[is.na(x)]
+ [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+
+| All that practice is paying off!
+
+  |=================                                                          |  23%
+
+| Recall that `!` gives us the negation of a logical expression, so !is.na(x) can be
+| read as 'is not NA'. Therefore, if we want to create a vector called y that
+| contains all of the non-NA values from x, we can use y <- x[!is.na(x)]. Give it a
+| try.
+
+> !
++ y<-x[!is.na(x)]
+Error in !y <- x[!is.na(x)] : could not find function "!<-"
+> x[!is.na(x)]
+ [1]  0.3360435 -0.8851049  1.0595398 -1.8834013 -1.2834998  0.8155585 -0.2667503
+ [8]  0.2882636  0.6937866 -1.4744486 -0.4001739 -0.1219760  0.2032400  1.1131855
+[15] -1.1911433  1.6550376 -0.4668890  1.3004094 -0.9098360 -1.3859542
+
+| That's not the answer I was looking for, but try again. Or, type info() for more
+| options.
+
+| Type y <- x[!is.na(x)] to capture all non-missing values from x.
+
+> y <- x[!is.na(x)]
+
+| That's correct!
+
+  |===================                                                        |  26%
+
+| Print y to the console.
+
+> y
+ [1]  0.3360435 -0.8851049  1.0595398 -1.8834013 -1.2834998  0.8155585 -0.2667503
+ [8]  0.2882636  0.6937866 -1.4744486 -0.4001739 -0.1219760  0.2032400  1.1131855
+[15] -1.1911433  1.6550376 -0.4668890  1.3004094 -0.9098360 -1.3859542
+
+| You nailed it! Good job!
+
+  |=====================                                                      |  28%
+
+| Now that we've isolated the non-missing values of x and put them in y, we can
+| subset y as we please.
+
+...
+
+  |=======================                                                    |  31%
+
+| Recall that the expression y > 0 will give us a vector of logical values the same
+| length as y, with TRUEs corresponding to values of y that are greater than zero
+| and FALSEs corresponding to values of y that are less than or equal to zero. What
+| do you think y[y > 0] will give you?
+
+1: A vector of length 0
+2: A vector of TRUEs and FALSEs
+3: A vector of all the positive elements of y
+4: A vector of all NAs
+5: A vector of all the negative elements of y
+
+Selection: 3
+
+| Excellent job!
+
+  |=========================                                                  |  33%
+
+| Type y[y > 0] to see that we get all of the positive elements of y, which are also
+| the positive elements of our original vector x.
+
+> y[y>0]
+[1] 0.3360435 1.0595398 0.8155585 0.2882636 0.6937866 0.2032400 1.1131855 1.6550376
+[9] 1.3004094
+
+| You got it!
+
+  |===========================                                                |  36%
+
+| You might wonder why we didn't just start with x[x > 0] to isolate the positive
+| elements of x. Try that now to see why.
+
+> x[x>0]
+ [1] 0.3360435        NA 1.0595398        NA        NA        NA        NA 0.8155585
+ [9] 0.2882636 0.6937866        NA        NA        NA        NA 0.2032400        NA
+[17]        NA        NA        NA        NA 1.1131855        NA        NA        NA
+[25] 1.6550376        NA        NA 1.3004094        NA
+
+| You nailed it! Good job!
+
+  |=============================                                              |  38%
+
+| Since NA is not a value, but rather a placeholder for an unknown quantity, the
+| expression NA > 0 evaluates to NA. Hence we get a bunch of NAs mixed in with our
+| positive numbers when we do this.
+
+...
+
+  |===============================                                            |  41%
+
+| Combining our knowledge of logical operators with our new knowledge of subsetting,
+| we could do this -- x[!is.na(x) & x > 0]. Try it out.
+
+> x[!is.name(x) & x>0]
+ [1] 0.3360435        NA 1.0595398        NA        NA        NA        NA 0.8155585
+ [9] 0.2882636 0.6937866        NA        NA        NA        NA 0.2032400        NA
+[17]        NA        NA        NA        NA 1.1131855        NA        NA        NA
+[25] 1.6550376        NA        NA 1.3004094        NA
+
+| That's not the answer I was looking for, but try again. Or, type info() for more
+| options.
+
+| Try x[!is.na(x) & x > 0] to see what you get.
+
+> x[!is.na(x) & x > 0]
+[1] 0.3360435 1.0595398 0.8155585 0.2882636 0.6937866 0.2032400 1.1131855 1.6550376
+[9] 1.3004094
+
+| Your dedication is inspiring!
+
+  |=================================                                          |  44%
+
+| In this case, we request only values of x that are both non-missing AND greater
+| than zero.
+
+...
+
+  |===================================                                        |  46%
+
+| I've already shown you how to subset just the first ten values of x using x[1:10].
+| In this case, we're providing a vector of positive integers inside of the square
+| brackets, which tells R to return only the elements of x numbered 1 through 10.
+
+...
+
+  |=====================================                                      |  49%
+
+| Many programming languages use what's called 'zero-based indexing', which means
+| that the first element of a vector is considered element 0. R uses 'one-based
+| indexing', which (you guessed it!) means the first element of a vector is
+| considered element 1.
+
+...
+
+  |======================================                                     |  51%
+
+| Can you figure out how we'd subset the 3rd, 5th, and 7th elements of x? Hint --
+| Use the c() function to specify the element numbers as a numeric vector.
+
+> c(3,5,7)
+[1] 3 5 7
+
+| Try again. Getting it right on the first try is boring anyway! Or, type info() for
+| more options.
+
+| Create a vector of indexes with c(3, 5, 7), then put that inside of the square
+| brackets.
+
+> c[3,5,7]
+Error in c[3, 5, 7] : object of type 'builtin' is not subsettable
+> c(x[3], x[5], x[7])
+[1]      NA      NA -1.2835
+
+| Not quite right, but keep trying. Or, type info() for more options.
+
+| Create a vector of indexes with c(3, 5, 7), then put that inside of the square
+| brackets.
+
+> 
+> c([3],[5],[7])
+Error: unexpected '[' in "c(["
+> x[c(3, 5, 7)]
+[1]      NA      NA -1.2835
+
+| That's correct!
+
+  |========================================                                   |  54%
+
+| It's important that when using integer vectors to subset our vector x, we stick
+| with the set of indexes {1, 2, ..., 40} since x only has 40 elements. What happens
+| if we ask for the zeroth element of x (i.e. x[0])? Give it a try.
+
+> x(x[0])
+Error: could not find function "x"
+> x([0])
+Error: unexpected '[' in "x(["
+> numeric(0)
+numeric(0)
+
+| Almost! Try again. Or, type info() for more options.
+
+| Try x[0] to see what happens when we refer to the zeroth element of a vector,
+| which is not defined in R.
+
+> x[0]
+numeric(0)
+
+| Nice work!
+
+  |==========================================                                 |  56%
+
+| As you might expect, we get nothing useful. Unfortunately, R doesn't prevent us
+| from doing this. What if we ask for the 3000th element of x? Try it out.
+
+> x[3000]
+[1] NA
+
+| You are quite good my friend!
+
+  |============================================                               |  59%
+
+| Again, nothing useful, but R doesn't prevent us from asking for it. This should be
+| a cautionary tale. You should always make sure that what you are asking for is
+| within the bounds of the vector you're working with.
+
+...
+
+  |==============================================                             |  62%
+
+| What if we're interested in all elements of x EXCEPT the 2nd and 10th? It would be
+| pretty tedious to construct a vector containing all numbers 1 through 40 EXCEPT 2
+| and 10.
+
+...
+
+  |================================================                           |  64%
+
+| Luckily, R accepts negative integer indexes. Whereas x[c(2, 10)] gives us ONLY the
+| 2nd and 10th elements of x, x[c(-2, -10)] gives us all elements of x EXCEPT for
+| the 2nd and 10 elements.  Try x[c(-2, -10)] now to see this.
+
+> x[c(-2, -10)]
+ [1]  0.3360435         NA  1.0595398         NA -1.8834013 -1.2834998         NA
+ [8]         NA  0.8155585 -0.2667503  0.2882636  0.6937866         NA -1.4744486
+[15]         NA -0.4001739 -0.1219760         NA         NA  0.2032400         NA
+[22]         NA         NA         NA         NA  1.1131855 -1.1911433         NA
+[29]         NA         NA  1.6550376 -0.4668890         NA         NA  1.3004094
+[36]         NA -0.9098360 -1.3859542
+
+| You got it right!
+
+  |==================================================                         |  67%
+
+| A shorthand way of specifying multiple negative numbers is to put the negative
+| sign out in front of the vector of positive numbers. Type x[-c(2, 10)] to get the
+| exact same result.
+
+> x[-c(2, 10)]
+ [1]  0.3360435         NA  1.0595398         NA -1.8834013 -1.2834998         NA
+ [8]         NA  0.8155585 -0.2667503  0.2882636  0.6937866         NA -1.4744486
+[15]         NA -0.4001739 -0.1219760         NA         NA  0.2032400         NA
+[22]         NA         NA         NA         NA  1.1131855 -1.1911433         NA
+[29]         NA         NA  1.6550376 -0.4668890         NA         NA  1.3004094
+[36]         NA -0.9098360 -1.3859542
+
+| You got it right!
+
+  |====================================================                       |  69%
+
+| So far, we've covered three types of index vectors -- logical, positive integer,
+| and negative integer. The only remaining type requires us to introduce the concept
+| of 'named' elements.
+
+...
+
+  |======================================================                     |  72%
+
+| Create a numeric vector with three named elements using vect <- c(foo = 11, bar =
+| 2, norf = NA).
+
+> x[c(foo=11,bar=2,norf=NA)]
+[1]  0.8155585 -0.8851049         NA
+
+| Almost! Try again. Or, type info() for more options.
+
+| Create a named vector with vect <- c(foo = 11, bar = 2, norf = NA).
+
+> vect <- c(foo = 11, bar = 2, norf = NA)
+
+| You are amazing!
+
+  |========================================================                   |  74%
+
+| When we print vect to the console, you'll see that each element has a name. Try it
+| out.
+
+> vect
+ foo  bar norf 
+  11    2   NA 
+
+| You are really on a roll!
+
+  |==========================================================                 |  77%
+
+| We can also get the names of vect by passing vect as an argument to the names()
+| function. Give that a try.
+
+> names()
+Error in names() : 0 arguments passed to 'names' which requires 1
+> names(vect2) <-c("foo", "bar", "norf")
+Error in names(vect2) <- c("foo", "bar", "norf") : 
+  object 'vect2' not found
+> names(vect2)
+Error: object 'vect2' not found
+> names(vect)
+[1] "foo"  "bar"  "norf"
+
+| Your dedication is inspiring!
+
+  |============================================================               |  79%
+
+| Alternatively, we can create an unnamed vector vect2 with c(11, 2, NA). Do that
+| now.
+
+> unname(vect2)
+Error in unname(vect2) : object 'vect2' not found
+> identical(vect, vect2)
+Error in identical(vect, vect2) : object 'vect2' not found
+> unname(vect)
+[1] 11  2 NA
+
+| Try again. Getting it right on the first try is boring anyway! Or, type info() for
+| more options.
+
+| Create an ordinary (unnamed) vector called vect2 that contains c(11, 2, NA).
+
+> vect2(unnamed)
+Error: could not find function "vect2"
+> c(11, 2, NA)
+[1] 11  2 NA
+
+| You're close...I can feel it! Try it again. Or, type info() for more options.
+
+| Create an ordinary (unnamed) vector called vect2 that contains c(11, 2, NA).
+> vect2(unnamed)
+Error: could not find function "vect2"
+> c(11, 2, NA)
+[1] 11  2 NA
+
+| You're close...I can feel it! Try it again. Or, type info() for more options.
+
+| Create an ordinary (unnamed) vector called vect2 that contains c(11, 2, NA).
+
+> vect2 <- c(11, 2, NA)
+
+| You are quite good my friend!
+
+  |==============================================================             |  82%
+
+| Then, we can add the `names` attribute to vect2 after the fact with names(vect2)
+| <- c("foo", "bar", "norf"). Go ahead.
+
+> names(vect2)
+NULL
+
+| Almost! Try again. Or, type info() for more options.
+
+| Add names to vect2 with names(vect2) <- c("foo", "bar", "norf").
+
+> names(vect2) <- c("foo", "bar", "norf")
+
+| Your dedication is inspiring!
+
+  |===============================================================            |  85%
+
+| Now, let's check that vect and vect2 are the same by passing them as arguments to
+| the identical() function.
+
+> identical(vect ,vect2)
+[1] TRUE
+
+| You are amazing!
+
+  |=================================================================          |  87%
+
+| Indeed, vect and vect2 are identical named vectors.
+
+...
+
+  |===================================================================        |  90%
+
+| Now, back to the matter of subsetting a vector by named elements. Which of the
+| following commands do you think would give us the second element of vect?
+
+1: vect[bar]
+2: vect["2"]
+3: vect["bar"]
+
+Selection: 2
+
+| Give it another try.
+
+| If we want the element named "bar" (i.e. the second element of vect), which
+| command would get us that?
+
+1: vect["bar"]
+2: vect["2"]
+3: vect[bar]
+
+Selection: 3
+
+| That's not exactly what I'm looking for. Try again.
+
+| If we want the element named "bar" (i.e. the second element of vect), which
+| command would get us that?
+
+1: vect["2"]
+2: vect[bar]
+3: vect["bar"]
+
+Selection: 1
+
+| Try again. Getting it right on the first try is boring anyway!
+
+| If we want the element named "bar" (i.e. the second element of vect), which
+| command would get us that?
+
+1: vect[bar]
+2: vect["2"]
+3: vect["bar"]
+
+Selection: 1
+
+| Not exactly. Give it another go.
+
+| If we want the element named "bar" (i.e. the second element of vect), which
+| command would get us that?
+
+1: vect["2"]
+2: vect["bar"]
+3: vect[bar]
+
+Selection: 2
+
+| You are really on a roll!
+
+  |=====================================================================      |  92%
+
+| Now, try it out.
+
+> vect["bar"]
+bar 
+  2 
+
+| That's correct!
+
+  |=======================================================================    |  95%
+
+| Likewise, we can specify a vector of names with vect[c("foo", "bar")]. Try it out.
+> vect[c("foo", "bar")]
+foo bar 
+ 11   2 
+
+| That's the answer I was looking for.
+
+  |=========================================================================  |  97%
+
+| Now you know all four methods of subsetting data from vectors. Different
+| approaches are best in different scenarios and when in doubt, try it out!
+
+...
+
+  |===========================================================================| 100%
+
+| Would you like to receive credit for completing this course on Coursera.org?
+
+1: Yes
+2: No
+
+Selection: yes
+Enter an item from the menu, or 0 to exit
+Selection: 1
+What is your email address? sahitimedha94@gmail.com
+What is your assignment token? 01
+Grade submission failed.
+Press ESC if you want to exit this lesson and you
+want to try to submit your grade at a later time.
+
+| Give it another try.
+
+| 
+
+1: Yes
+2: No
+
+Selection: yes
+Enter an item from the menu, or 0 to exit
+Selection: 1
+What is your email address? sahitimedha94@gmail.com
+What is your assignment token? subsetting Vectors
+Grade submission failed.
+Press ESC if you want to exit this lesson and you
+want to try to submit your grade at a later time.
+
+| Nice try, but that's not exactly what I was hoping for. Try again.
+
+| 
+
+1: No
+2: Yes
+
+Selection: 2
+What is your email address? sahitireddy1995@gmail.com
+What is your assignment token? 0.
+Grade submission failed.
+Press ESC if you want to exit this lesson and you
+want to try to submit your grade at a later time.
+
+| Almost! Try again.
+
+| 
+
+1: No
+2: Yes
+
+Selection: 2
+What is your email address? medhareddy1994@gmail.com
+What is your assignment token? A
+Grade submission failed.
+Press ESC if you want to exit this lesson and you
+want to try to submit your grade at a later time.
+
+| You're close...I can feel it! Try it again.
+
+| 
+
+1: No
+2: Yes
+
+Selection: yes
+Enter an item from the menu, or 0 to exit
+Selection: 1
+
+| You are doing so well!
+
+| You've reached the end of this lesson! Returning to the main menu...
+
+| Would you like to continue with one of these lessons?
+
+1: R Programming Basic Building Blocks
+2: No. Let me start something new.
+
+Selection: 2
+
+| Please choose a course, or type 0 to exit swirl.
+
+1: R Programming
+2: Take me to the swirl course repository!
+
+Selection: 1
+
+| Please choose a lesson, or type 0 to return to course menu.
+
+ 1: Basic Building Blocks      2: Workspace and Files     
+ 3: Sequences of Numbers       4: Vectors                 
+ 5: Missing Values             6: Subsetting Vectors      
+ 7: Matrices and Data Frames   8: Logic                   
+ 9: Functions                 10: lapply and sapply       
+11: vapply and tapply         12: Looking at Data         
+13: Simulation                14: Dates and Times         
